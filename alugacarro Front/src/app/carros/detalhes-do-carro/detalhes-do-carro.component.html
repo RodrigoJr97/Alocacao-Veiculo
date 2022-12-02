@@ -1,0 +1,91 @@
+<div class="row col-md-7">
+  <div class="card  shadow-lg p-3">
+    <img class="card-img-top" src="{{ carro.img }}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title"> {{ carro.marca }} {{ carro.modelo }} {{ carro.anoDeFabricacao }}</h5>
+      <div class="card">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"> Categoria: {{ carro.tipo }} </li>
+        <li class="list-group-item">Combustivel: {{ carro.tipoDeCombustivel }} </li>
+        <li class="list-group-item"> Cor: {{ carro.cor }} | {{ carro.numDePortas }} portas </li>
+      </ul>
+    </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-secondary" data-toggle="modal" data-target="#modalAluguel">
+        Alugar
+      </button>
+      <button class="btn btn-danger ml-2" routerLink="/home">Voltar</button>
+      <!-- Modal -->
+      <div class="modal fade" id="modalAluguel" tabindex="-1"
+      role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Alugar Carro</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <!-- conteudo do modal-->
+              <form #contratoForm="ngForm" (ngSubmit)="onSubmit()">
+                <div class="form-row mb-2">
+                  <div class="col-md-2">
+                    <input type="text" class="form-control" placeholder="ID:" disabled="true">
+                  </div>
+                  <div class="col">
+                    <input type="text" class="form-control" placeholder="Nome do Cliente" disabled="true">
+                  </div>
+                </div>
+                <div class="form-row mb-2">
+                  <div class="col-md-2">
+                    <label>ID:</label>
+                    <input type="text" class="form-control" placeholder="Carro:" disabled="true"
+                    [(ngModel)]="carro.id" name="id">
+                  </div>
+                  <div class="col">
+                    <label>Carro:</label>
+                    <input type="text" class="form-control" placeholder="Nome do Carro" disabled="true"
+                    [(ngModel)]="carro.modelo" name="modelo">
+                  </div>
+                </div>
+                <div class="form-row mb-2">
+                  <div class="col-md-3">
+                    <label  class="form-label">N° de Diarias:</label>
+                    <input type="number" class="form-control"  min="1" (click)="calcularValor()"
+                    [(ngModel)]="diarias" name="diarias">
+                  </div>
+                  <div class="form-outline col-md-3">
+                    <label  class="form-label">Valor da diaria:</label>
+                    <input type="number" class="form-control"  min="1" disabled="true"
+                    [(ngModel)]="carro.valorDiaria" name="valorDiaria" [(value)]="carro.valorDiaria">
+                  </div>
+                  <div class="form-outline col-md-3">
+                    <label  class="form-label">Valor Total:</label>
+                    <input type="number" class="form-control"  disabled="true"
+                    [(ngModel)]="valorTotal" name="valorTotal">
+                  </div>
+
+                </div>
+                <div class="form-check mb-2 mt-1">
+                  <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" (click)="confirmarContrato()">
+                  <label class="form-check-label" for="defaultCheck1">
+                    Estou ciente da multa com acrescimos de 20% do valor total por dia de atraso após a data de entrega do veiculo.
+                  </label>
+                </div>
+              </form>
+              <div class="alert alert-danger" role="alert" *ngIf="contrato == false">
+                É necessario confirmar o checkbox para continuar.
+              </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-success">Confirmar</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">cancelar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

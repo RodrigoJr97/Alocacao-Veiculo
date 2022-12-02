@@ -1,0 +1,69 @@
+<h1 class="mt-4"> Clientes </h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">Listagem</li>
+</ol>
+<div class="col-md-2">
+  <button class="btn btn-secondary mb-3" (click)="novoCliente()">
+    <i class="fa fa-plus"></i> Novo Cliente
+  </button>
+</div>
+  <div class="row">
+      <table class="table table-hover col-md-12">
+        <thead>
+          <tr>
+            <th> ID </th>
+            <th> Nome </th>
+            <th> CPF </th>
+            <th> N° Telefone </th>
+            <th> Email </th>
+            <th> Endereço </th>
+            <th> Disponivel </th>
+            <th> Editar </th>
+            <th> Excluir </th>
+          </tr>
+        </thead>
+        <tbody >
+          <tr>
+            <td> 1 </td>
+            <td> Matheus Santos </td>
+            <td> 136736622271 </td>
+            <td> 31 9993728</td>
+            <td> matheus@gmail.com </td>
+            <td> modal Endereço</td>
+            <td> sim </td>
+            <td>
+              <button class="btn btn-default" type="button"
+                >
+                <i class="fa fa-edit"></i>
+              </button>
+            </td>
+            <td>
+              <button class="btn btn-default" type="button"
+                data-toggle="modal" data-target="#modalDelecao">
+                <i class="fa fa-trash"></i>
+              </button>
+          </tr>
+        </tbody>
+      </table>
+
+  </div>
+  <div id="modalDelecao" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4>Confirmação</h4>
+        </div>
+        <div class="modal-body">
+          Tem certeza que deseja excluir o carro
+
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-default"> <i class="fa fa-check"></i> Confirmar</button>
+          <button class="btn btn-default" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Voltar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+

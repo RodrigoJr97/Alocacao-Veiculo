@@ -1,0 +1,118 @@
+<h1 class="mt-4"> Carros </h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active" >{{ carro.id ? 'Editar' : 'Cadastrar'}} </li>
+</ol>
+
+<div class="container mb-5">
+  <form #carroForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="alert alert-success" role="alert" *ngIf="success == true">
+          {{ carro.id ?  'Carro atualizado com sucesso!' : 'Carro cadastrado com sucesso!!'}}
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="falhaDeCadastro == true">
+          Falha ao cadastrar Carro!! todos os campos são obrigatorios.
+        </div>
+      </div>
+    </div>
+
+    <div class="row" >
+      <div class="col-md-1" *ngIf="carro.id">
+        <div class="form-group">
+          <label>ID</label>
+          <input type="text" class="form-control"  disabled="true"
+          [ngModel]="carro.id" name="id">
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Modelo</label>
+          <input type="text" class="form-control"
+          [(ngModel)]="carro.modelo" name="modelo">
+        </div>
+      </div>
+      <div class="form-group col-md-3">
+        <label>Fabricante</label>
+        <input type="text" class="form-control"
+        [(ngModel)]="carro.marca" name="marca">
+      </div>
+      <div class="form-group col-md-2">
+        <label for="inputPassword4">Ano de Fabricação</label>
+        <input type="text" class="form-control"
+        [(ngModel)]="carro.anoDeFabricacao" name="anoDeFabricacao">
+      </div>
+      <div class="form-group col-md-3">
+        <label>Categoria</label>
+          <select class="form-control"
+          [(ngModel)]="carro.tipo" name="tipo">
+            <option value="Hath"> Hatch </option>
+            <option value="Luxo"> Luxo </option>
+            <option value="Sedan"> Sedan </option>
+            <option value="Camionete"> Camionete </option>
+            <option value="Suv"> Suv </option>
+          </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="col-md-1"  *ngIf="carro.id">
+        <div class="form-group" >
+          <label>Disponivel</label>
+          <input type="text" class="form-control"  disabled="true"
+          [ngModel]="carro.disponivel" name="disponivel">
+        </div>
+      </div>
+      <div class="form-group col-md-2">
+        <label >Cor</label>
+        <input type="text" class="form-control"
+        [(ngModel)]="carro.cor" name="cor">
+      </div>
+      <div class="form-group col-md-2">
+        <label >n° de portas</label>
+        <select  class="form-control"
+        [(ngModel)]="carro.numDePortas" name="numDePortas">
+          <option value="2"> 2 </option>
+          <option value="3"> 3 </option>
+          <option value="4"> 4 </option>
+        </select>
+      </div>
+      <div class="form-group col-md-2">
+        <label >Valor p/diaria (R$)</label>
+        <input type="number" class="form-control"
+        [(ngModel)]="carro.valorDiaria" name="valorDiaria" min="1">
+      </div>
+        <div class="form-group col-md-2">
+          <label>Combustivel</label>
+          <select class="form-control"
+          [(ngModel)]="carro.tipoDeCombustivel" name="tipoDeCombustivel">
+            <option value="Alcool"> Alcool </option>
+            <option value="Gasolina"> Gasolina </option>
+            <option value="Diese"> Diesel </option>
+            <option value="Flex"> Flex </option>
+          </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label >Imagem (url*)</label>
+          <input type="text" class="form-control"
+          [(ngModel)]="carro.img" name="img">
+        </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <button type="submit" class="btn btn-success mr-2" *ngIf="!carro.id" >
+          <i class="fa fa-save"></i> Salvar
+        </button>
+
+        <button type="submit" class="btn btn-primary mr-2" *ngIf="carro.id" >
+          <i class="fa fa-sync"></i> Atualizar
+        </button>
+
+         <button type="submit" class="btn btn-danger" (click)="voltarParaListagem()">
+          <i class="fa fa-arrow-circle-left"></i> Voltar</button>
+      </div>
+    </div>
+
+
+  </form>
+</div>
