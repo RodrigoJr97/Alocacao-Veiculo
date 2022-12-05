@@ -30,6 +30,6 @@ public class InformacoesAluguelDTO {
     private String anoFabricacao;
     private BigDecimal valorDiaria;
     private BigDecimal valorTotal;
-    private String img;
+    private String statusContrato;
 
 }

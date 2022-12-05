@@ -1,5 +1,6 @@
 package com.alugacarro.alugacarro.domain.entity;
 
+import com.alugacarro.alugacarro.domain.enums.StatusContrato;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +27,10 @@ public class Aluguel {
 
     @Column(name = "data_fim")
     private LocalDate dataFim;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_contrato")
+    private StatusContrato statusContrato;
 
     @OneToOne
     @JoinColumn(name = "id_carro", referencedColumnName = "id")

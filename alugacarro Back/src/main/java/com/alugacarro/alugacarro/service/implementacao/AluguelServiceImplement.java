@@ -4,6 +4,7 @@ import com.alugacarro.alugacarro.domain.contantes.TipoCategoria;
 import com.alugacarro.alugacarro.domain.entity.Aluguel;
 import com.alugacarro.alugacarro.domain.entity.Carro;
 import com.alugacarro.alugacarro.domain.entity.Cliente;
+import com.alugacarro.alugacarro.domain.enums.StatusContrato;
 import com.alugacarro.alugacarro.domain.repository.AluguelRepository;
 import com.alugacarro.alugacarro.domain.repository.CarroRepository;
 import com.alugacarro.alugacarro.domain.repository.ClienteRepository;
@@ -37,7 +38,7 @@ public class AluguelServiceImplement implements AluguelService {
     public Aluguel salvar(AluguelDTO aluguelDTO) {
         Integer idCliente = aluguelDTO.getCliente();
         Cliente cliente = clienteRepository.findById(idCliente)
-                .orElseThrow( () -> new RegraNegocioException("Cliente não encontrado."));
+                .orElseThrow(() -> new RegraNegocioException("Cliente não encontrado."));
 
         if (!cliente.isDisponivelParaContrato()) {
             throw new ClienteComContratoAbertoException();
@@ -47,7 +48,7 @@ public class AluguelServiceImplement implements AluguelService {
 
         Integer idCarro = aluguelDTO.getCarro();
         Carro carro = carroRepository.findById(idCarro)
-                .orElseThrow( () -> new RegraNegocioException("Carro não encontrado."));
+                .orElseThrow(() -> new RegraNegocioException("Carro não encontrado."));
 
         if (!carro.isDisponivel()) {
             throw new CarroNaoDisponivelException();
@@ -83,11 +84,35 @@ public class AluguelServiceImplement implements AluguelService {
         return aluguelRepository.findById(id);
     }
 
+    @Override
+    @Transactional
+    public void finalizaAluguel(Integer id) {
+        Aluguel aluguelParaFinalizar = aluguelRepository.findById(id)
+                .orElseThrow(() -> new RegraNegocioException("Aluguel não encontrado."));
+
+        Integer idCliente = aluguelParaFinalizar.getCliente().getId();
+        Cliente cliente = clienteRepository.findById(idCliente)
+                .orElseThrow(() -> new RegraNegocioException("Cliente não encontrado."));
+
+        Integer idCarro = aluguelParaFinalizar.getCarro().getId();
+        Carro carro = carroRepository.findById(idCarro)
+                .orElseThrow(() -> new RegraNegocioException("Carro não encontrado."));
+
+
+        cliente.setDisponivelParaContrato(true);
+        carro.setDisponivel(true);
+        aluguelParaFinalizar.setStatusContrato(StatusContrato.valueOf(StatusContrato.FINALIZADO.name()));
+
+        clienteRepository.save(cliente);
+        carroRepository.save(carro);
+        aluguelRepository.save(aluguelParaFinalizar);
+    }
+
 
     private void agrupaPorTipo(AluguelDTO aluguelDTO) {
         Integer idCarro = aluguelDTO.getCarro();
         Carro carro = carroRepository.findById(idCarro)
-                .orElseThrow( () -> new RegraNegocioException("Carro não encontrado."));
+                .orElseThrow(() -> new RegraNegocioException("Carro não encontrado."));
 
         HashMap<String, List<Carro>> mapsCarro = new HashMap<String, List<Carro>>();
 

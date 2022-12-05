@@ -12,5 +12,6 @@ public interface AluguelService {
     Aluguel salvar(AluguelDTO aluguelDTO);
     Optional<Aluguel> obterAluguelCompleto(Integer id);
 
+    void finalizaAluguel(Integer id);
 
 }

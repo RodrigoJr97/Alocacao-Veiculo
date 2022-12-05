@@ -36,6 +36,12 @@ public class AluguelController {
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contrato não encontrado"));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> finalizaContrato(@PathVariable Integer id) {
+        aluguelService.finalizaAluguel(id);
+        return new ResponseEntity<>("Contrato Finalizado", HttpStatus.OK);
+    }
+
     private InformacoesAluguelDTO converter(Aluguel aluguel) {
 
         return InformacoesAluguelDTO
