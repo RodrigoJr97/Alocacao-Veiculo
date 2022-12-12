@@ -33,4 +33,8 @@ export class CarrosService {
     return this.http.delete<any>(`${this.baseUrl}/${carro.id}`);
   }
 
+   carrosDisponiveis(): Observable<Carro[]>{
+    return this.http.get<Carro[]>(`${this.baseUrl}/disponivel`);
+  }
+
 }

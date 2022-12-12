@@ -14,11 +14,10 @@ export class HomeComponent implements OnInit {
   carros: Carro[] = [];
 
   constructor(private service: CarrosService) {
-
-   }
+  }
 
   ngOnInit(): void {
-    this.service.getCarros()
+    this.service.carrosDisponiveis()
     .subscribe( reposta => {
       this.carros = reposta;
     })
