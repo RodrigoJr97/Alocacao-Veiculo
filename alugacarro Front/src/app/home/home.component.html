@@ -7,14 +7,14 @@
   <div class="col-sm-4 col-md-4 mb-2" *ngFor="let carro of carros">
     <div class="card mb-3" >
       <div class="card-header">
-        {{ carro.tipo }}
+        {{ carro.tipo | uppercase}}
       </div>
       <img class="card-img-top"
       src="{{ carro.img }}" alt="imagem do carro">
       <div class="card-body">
-        <h5 class="card-title">{{ carro.marca }} {{ carro.modelo }}  {{ carro.anoDeFabricacao }} </h5>
+        <h5 class="card-title"> {{ carro.marca }} {{ carro.modelo }} - {{ carro.anoDeFabricacao }}  </h5>
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">Diaria: R$ {{ carro.valorDiaria }}  </li>
+            <li class="list-group-item">Diaria: {{ carro.valorDiaria | currency:'BRL':true:'1.2-2'}}  </li>
           </ul>
         <a href="carros/detalhes/{{carro.id}}" class="btn btn-outline-dark mt-2">Mais detalhes</a>
       </div>

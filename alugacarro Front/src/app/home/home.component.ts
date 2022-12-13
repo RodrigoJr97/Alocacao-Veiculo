@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.service.carrosDisponiveis()
+    this.service.getCarrosDisponiveis()
     .subscribe( reposta => {
       this.carros = reposta;
     })
