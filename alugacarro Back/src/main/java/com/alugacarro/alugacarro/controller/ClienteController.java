@@ -2,12 +2,15 @@ package com.alugacarro.alugacarro.controller;
 
 import com.alugacarro.alugacarro.domain.entity.Cliente;
 import com.alugacarro.alugacarro.domain.repository.ClienteRepository;
+import com.alugacarro.alugacarro.service.implementacao.ClienteService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -15,9 +18,11 @@ import java.util.Optional;
 public class ClienteController {
 
     private final ClienteRepository clienteRepository;
+    private final ClienteService clienteService;
 
-    public ClienteController(ClienteRepository clienteRepository) {
+    public ClienteController(ClienteRepository clienteRepository, ClienteService clienteService) {
         this.clienteRepository = clienteRepository;
+        this.clienteService = clienteService;
     }
 
     @PostMapping
@@ -27,14 +32,18 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllClientes() {
-        List<Cliente> listaCliente = clienteRepository.findAll();
+    public ResponseEntity<Page<Cliente>> getAllClientes(@RequestParam int pagina,
+                                                        @RequestParam int quantidade) {
 
-        if (listaCliente.isEmpty()) {
+        Pageable paginacao = PageRequest.of(pagina, quantidade);
+
+        Page<Cliente> clientes = clienteService.listAll(paginacao);
+
+        if (clientes.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
 
-        return new ResponseEntity<>(listaCliente, HttpStatus.OK);
+        return new ResponseEntity<>(clientes, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

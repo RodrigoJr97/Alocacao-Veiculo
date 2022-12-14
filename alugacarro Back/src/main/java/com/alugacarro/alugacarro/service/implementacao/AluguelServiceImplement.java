@@ -14,6 +14,8 @@ import com.alugacarro.alugacarro.exception.RegraNegocioException;
 import com.alugacarro.alugacarro.dto.AluguelDTO;
 import com.alugacarro.alugacarro.service.AluguelService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +34,9 @@ public class AluguelServiceImplement implements AluguelService {
     private final CarroRepository carroRepository;
     private final AluguelRepository aluguelRepository;
 
+    public Page<Aluguel> listAll(Pageable pageable) {
+        return aluguelRepository.findAll(pageable);
+    }
 
     @Override
     @Transactional
