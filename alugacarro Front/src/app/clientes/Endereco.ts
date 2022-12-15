@@ -1,3 +1,5 @@
+import { Cliente } from './Clientes';
+
 export class Endereco {
   id: any;
   rua: string;
@@ -6,4 +8,5 @@ export class Endereco {
   cidade: string;
   estado: string;
   complement: string;
+  cliente:Cliente;
 }

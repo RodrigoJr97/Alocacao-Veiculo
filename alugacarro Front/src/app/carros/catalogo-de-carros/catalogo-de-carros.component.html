@@ -6,13 +6,15 @@
           Carros Disponiveis
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item"  (click)="carrosDisponiveis()">Todos os carros</a>
-          <a class="dropdown-item"  (click)="carrosPorCategoria('hatch')">Hatch</a>
-          <a class="dropdown-item"  (click)="carrosPorCategoria('luxo')">Luxo</a>
-          <a class="dropdown-item"  (click)="carrosPorCategoria('suv')">SUV</a>
-          <a class="dropdown-item"  (click)="carrosPorCategoria('sedan')">Sedan</a>
-          <a class="dropdown-item"  (click)="carrosPorCategoria('camionete')">Camionete</a>
+          <a class="dropdown-item" routerLink="/carros/catalogo/hatch" >Teste</a>
+          <a class="dropdown-item" href="#">Preço: Menor para Maior</a>
+          <a class="dropdown-item" href="#">Categoria: Hatch</a>
+          <a class="dropdown-item" href="#">Categoria: Sedan</a>
+          <a class="dropdown-item" href="#">Categoria: Camionete</a>
+          <a class="dropdown-item" href="#">Categoria: SUV</a>
+          <a class="dropdown-item" href="#">Categoria: Luxo</a>
         </div>
+
       </div>
     </li>
 </ol>

@@ -37,4 +37,7 @@ export class CarrosService {
     return this.http.get<Carro[]>(`${this.baseUrl}/disponivel`);
   }
 
+  getCarrosPorTipo(tipo: string): Observable<Carro[]> {
+    return this.http.get<Carro[]>(`${this.baseUrl}/tipo/${tipo}`);
+  }
 }
