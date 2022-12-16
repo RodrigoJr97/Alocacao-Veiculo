@@ -20,6 +20,10 @@ public class EnderecoCliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(length = 10)
+    @NotEmpty(message = "CEP Obrigatório")
+    private String cep;
+
     @Column(length = 40)
     @NotEmpty(message = "Campo Obrigatório: RUA")
     private String rua;

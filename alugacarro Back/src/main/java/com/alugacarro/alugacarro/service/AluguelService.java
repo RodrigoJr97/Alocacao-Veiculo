@@ -3,6 +3,8 @@ package com.alugacarro.alugacarro.service;
 import com.alugacarro.alugacarro.domain.entity.Aluguel;
 import com.alugacarro.alugacarro.domain.entity.Carro;
 import com.alugacarro.alugacarro.dto.AluguelDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
@@ -14,4 +16,5 @@ public interface AluguelService {
 
     void finalizaAluguel(Integer id);
 
+    Page<Aluguel> listAll(Pageable paginacao);
 }

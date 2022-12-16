@@ -2,6 +2,10 @@ package com.alugacarro.alugacarro.controller;
 
 import com.alugacarro.alugacarro.domain.entity.Carro;
 import com.alugacarro.alugacarro.domain.repository.CarroRepository;
+import com.alugacarro.alugacarro.service.implementacao.CarroService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +20,11 @@ import java.util.Optional;
 public class CarroController {
 
     private final CarroRepository carroRepository;
+    private final CarroService carroService;
 
-    public CarroController(CarroRepository carroRepository) {
+    public CarroController(CarroRepository carroRepository, CarroService carroService) {
         this.carroRepository = carroRepository;
+        this.carroService = carroService;
     }
 
     @PostMapping
@@ -31,13 +37,18 @@ public class CarroController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllCarros() {
-        List<Carro> listaCarros = carroRepository.findAll();
-        if (listaCarros.isEmpty()) {
+    public ResponseEntity<Page<Carro>> getAllCarros(@RequestParam int pagina,
+                                                    @RequestParam int quantidade) {
+
+        Pageable paginacao = PageRequest.of(pagina, quantidade);
+
+        Page<Carro> carros = carroService.listAll(paginacao);
+
+        if (carros.isEmpty()) {
             return  ResponseEntity.noContent().build();
         }
 
-        return new ResponseEntity<>(listaCarros, HttpStatus.OK);
+        return new ResponseEntity<>(carros, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

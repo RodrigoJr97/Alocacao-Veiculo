@@ -4,6 +4,9 @@ import com.alugacarro.alugacarro.domain.entity.Aluguel;
 import com.alugacarro.alugacarro.dto.AluguelDTO;
 import com.alugacarro.alugacarro.dto.InformacoesAluguelDTO;
 import com.alugacarro.alugacarro.service.AluguelService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +29,21 @@ public class AluguelController {
     public ResponseEntity<?> salvar(@RequestBody @Valid AluguelDTO aluguelDTO) {
         Aluguel aluguelSalvo = aluguelService.salvar(aluguelDTO);
         return new ResponseEntity<>("Aluguel Salvo, Id: " + aluguelSalvo.getId(), HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<Aluguel>> getAllCarros(@RequestParam int pagina,
+                                                      @RequestParam int quantidade) {
+
+        Pageable paginacao = PageRequest.of(pagina, quantidade);
+
+        Page<Aluguel> listaAlguel = aluguelService.listAll(paginacao);
+
+        if (listaAlguel.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+
+        return new ResponseEntity<>(listaAlguel, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
