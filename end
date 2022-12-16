@@ -1,9 +1,0 @@
-[33m02ac47d[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge branch 'master' of https://github.com/RodrigoJr97/Alocacao-Veiculo
-[33maa9eb61[m interface de cadastro criada
-[33mb5f229e[m Atributo CEP adicionado em EnderecoCliente
-[33m5c8b346[m adicionada funcao de buscar carros por categoria na homePage
-[33m7800ca7[m Paginacao simples em Cliente, Carro e Aluguel
-[33mb34aa86[m erros de nome de categorias e alinhamento do card de carros corrigidos
-[33m652b3f6[m atualizacao do frontend
-[33m09571bb[m Método para finalizar contrato
-[33m47c4e2c[m Primeiro commit
