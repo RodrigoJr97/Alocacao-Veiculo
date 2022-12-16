@@ -43,6 +43,7 @@ public class EnderecoCliente {
     @NotEmpty(message = "Campo Obrigatório: ESTADO")
     private String estado;
 
+    @Column(length = 50)
     private String complemento;
 
 
