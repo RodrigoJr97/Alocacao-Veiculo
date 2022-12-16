@@ -25,9 +25,9 @@ public class InformacoesAluguelDTO {
     private String modelo;
     private String tipo;
     private String cor;
-    private int numeroDePortas;
-    private String tipoCombustivel;
-    private String anoFabricacao;
+    private int numDePortas;
+    private String tipoDeCombustivel;
+    private String anoDeFabricacao;
     private BigDecimal valorDiaria;
     private BigDecimal valorTotal;
     private String statusContrato;

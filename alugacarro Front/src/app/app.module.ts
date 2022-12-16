@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http'
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,8 +14,9 @@ import { RouterModule } from '@angular/router';
 import { ContratosModule } from './contratos/contratos.module';
 import { ClientesModule } from './clientes/clientes.module';
 import { CarrosService } from './carros.service';
-import { FormsModule } from '@angular/forms';
 import { LayoutComponent } from './layout/layout.component';
+import { CadastroComponent } from './cadastro/cadastro.component';
+import { ClienteService } from './cliente.service';
 
 
 @NgModule({
@@ -22,7 +24,8 @@ import { LayoutComponent } from './layout/layout.component';
     AppComponent,
     HomeComponent,
     LoginComponent,
-    LayoutComponent
+    LayoutComponent,
+    CadastroComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +38,11 @@ import { LayoutComponent } from './layout/layout.component';
     ClientesModule,
     RouterModule,
     ClientesModule,
+    ReactiveFormsModule
   ],
   providers: [
-    CarrosService
+    CarrosService,
+    ClienteService
   ],
   bootstrap: [AppComponent]
 })

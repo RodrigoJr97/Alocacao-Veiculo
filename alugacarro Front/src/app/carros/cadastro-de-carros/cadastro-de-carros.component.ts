@@ -43,9 +43,7 @@ export class CadastroDeCarrosComponent implements OnInit {
   }
 
   onSubmit(){
-
     if (this.id) {
-
       this.service
       .atualizar(this.carro)
         .subscribe( resposta => {
@@ -56,7 +54,6 @@ export class CadastroDeCarrosComponent implements OnInit {
           this.success = false;
         })
     } else {
-
       this.service
       .salvar(this.carro)
         .subscribe( resposta => {

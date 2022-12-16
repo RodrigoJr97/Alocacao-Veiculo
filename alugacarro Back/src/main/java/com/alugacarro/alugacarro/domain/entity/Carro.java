@@ -30,24 +30,24 @@ public class Carro {
     @NotEmpty(message = "Obrigatório - Tipo")
     private String tipo;
 
-    @NotEmpty(message = "Obrigatório - Cor")
-    private String cor;
-
-    @NotNull(message = "Obrigatório - Numero de Portas")
-    private int numeroDePortas;
-
-    @NotEmpty(message = "brigatório - Tipo Combustivel")
-    private String tipoCombustivel;
-
     @NotEmpty(message = "Obrigatório - Ano Fabricação")
-    private String anoFabricacao;
+    private String anoDeFabricacao;
 
     @Column(name = "valor_diaria")
     @NotNull(message = "Obrigatório - Valor Diária")
     private BigDecimal valorDiaria;
 
-    private boolean disponivel = true;
+    @NotEmpty(message = "brigatório - Tipo Combustivel")
+    private String tipoDeCombustivel;
 
+
+    @NotEmpty(message = "Obrigatório - Cor")
+    private String cor;
+
+    @NotNull(message = "Obrigatório - Numero de Portas")
+    private int numDePortas;
+
+    private boolean disponivel = true;
     // @NotEmpty
     private String img;
 

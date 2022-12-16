@@ -9,4 +9,5 @@ export class Endereco {
   estado: string;
   complement: string;
   cliente:Cliente;
+  cep?: string;
 }

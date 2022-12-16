@@ -1,0 +1,12 @@
+.login-container {
+    position: absolute;
+    right: 2rem;
+}
+
+.login-container button {
+    color: azure;
+}
+
+#titulo {
+    text-decoration: double;
+}

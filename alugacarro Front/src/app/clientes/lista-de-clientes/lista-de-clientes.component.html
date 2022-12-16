@@ -8,41 +8,52 @@
   </button>
 </div>
   <div class="row">
-      <table class="table table-hover col-md-12">
+      <table class="table table-hover col-md-12 ">
         <thead>
           <tr>
             <th> ID </th>
             <th> Nome </th>
             <th> CPF </th>
-            <th> N° Telefone </th>
+            <th> Contato </th>
             <th> Email </th>
-            <th> Endereço </th>
             <th> Disponivel </th>
-            <th> Editar </th>
+            <th> Rua </th>
+            <th> Logradouro </th>
+            <th> Bairro </th>
+            <th> Cidade </th>
+            <th> Estado </th>
+            <th> Comp </th>
             <th> Excluir </th>
+            <th> Editar </th>
+
           </tr>
         </thead>
-        <tbody >
+        <tbody *ngFor="let cliente of clientes">
           <tr>
-            <td> 1 </td>
-            <td> Matheus Santos </td>
-            <td> 136736622271 </td>
-            <td> 31 9993728</td>
-            <td> matheus@gmail.com </td>
-            <td> modal Endereço</td>
-            <td> sim </td>
-            <td>
-              <button class="btn btn-default" type="button"
-                >
-                <i class="fa fa-edit"></i>
-              </button>
-            </td>
+            <td> {{ cliente.id }} </td>
+            <td> {{ cliente.nome }} </td>
+            <td> {{ cliente.cpf }} </td>
+            <td> {{ cliente.numeroTelefone }} </td>
+            <td> {{ cliente.email }} </td>
+            <td class="text-center"> {{ cliente.disponivelParaContrato ? 'sim' : 'não' }} </td>
+            <td>{{ cliente.endereco.rua }} </td>
+            <td class="text-center">{{ cliente.endereco.numeroLogradouro }} </td>
+            <td>{{ cliente.endereco.bairro }} </td>
+            <td>{{ cliente.endereco.cidade }} </td>
+            <td>{{ cliente.endereco.estado }} </td>
+            <td>{{ cliente.endereco.complemento }} </td>
             <td>
               <button class="btn btn-default" type="button"
                 data-toggle="modal" data-target="#modalDelecao">
                 <i class="fa fa-trash"></i>
               </button>
-          </tr>
+            </td>
+            <td>
+              <button class="btn btn-default" type="button"
+                data-toggle="modal" data-target="#modalDelecao">
+                <i class="fa fa-edit"></i>
+              </button>
+            </td>
         </tbody>
       </table>
 
@@ -64,6 +75,7 @@
       </div>
     </div>
   </div>
+
 
 
 {{ clientes | json}}
