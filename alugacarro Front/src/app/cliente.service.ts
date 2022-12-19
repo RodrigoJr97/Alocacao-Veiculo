@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Cliente } from './clientes/Clientes';
 import { Endereco } from './clientes/Endereco';
-import { Cep } from './cadastro/cep';
+
 
 @Injectable({
   providedIn: 'root'
@@ -26,11 +26,14 @@ import { Cep } from './cadastro/cep';
   }
 
   salvarCliente(cliente: Cliente): Observable<Cliente>{
-    return this.http.post<Cliente>(`${this.baseUrl}`, cliente)
+    return this.http.post<Cliente>(this.baseUrl, cliente);
   }
 
-  getCep(cep: string): Observable<any>{
-    return this.http.get<any>(`https://viacep.com.br/ws/${cep}/json/`)
+  deletarCliente(cliente: Cliente): Observable<any>{
+    return this.http.delete<any>(`${this.baseUrl}/${cliente.id}`);
   }
 
+  atualizarCliente(cliente: Cliente): Observable<any>{
+    return this.http.put<any>(`${this.baseUrl}/${cliente.id}`, cliente)
+  }
 }

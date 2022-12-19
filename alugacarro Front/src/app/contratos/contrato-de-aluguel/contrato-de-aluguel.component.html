@@ -1,52 +1,60 @@
 <h1 class="mt-4"> Contrato de aluguel </h1>
 <ol class="breadcrumb mb-4">
-  <li class="breadcrumb-item active">Cadastro</li>
+  <li class="breadcrumb-item active">Listagem</li>
 </ol>
-
 <div class="container mb-5">
-  <form>
-    <div class="form-row col-md-6">
-      <fieldset disabled>
-        <div class="form-group">
-          <label for="disabledTextInput">ID</label>
-          <input type="text" id="disabledTextInput" class="form-control" placeholder="2">
-        </div>
-        <div class="form-group">
-          <label for="inputEmail4">Cliente:</label>
-          <input type="text" class="form-control" placeholder="Nome">
-        </div>
-      </fieldset>
-      </div>
-    <div class="form-group">
-      <label for="inputAddress">Address</label>
-      <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-    </div>
-    <div class="form-group">
-      <label for="inputAddress2">Address 2</label>
-      <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="inputCity">City</label>
-        <input type="text" class="form-control" id="inputCity">
-      </div>
-      <div class="form-group col-md-4">
-        <label for="inputState">State</label>
-        <select id="inputState" class="form-control">
-          <option selected>Choose...</option>
-          <option>...</option>
-        </select>
-      </div>
+<div class="row">
+  <div class="col-md-12">
 
-    </div>
-    <div class="form-group">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="gridCheck">
-        <label class="form-check-label" for="gridCheck">
-          Check me out
-        </label>
+  </div>
+    <table class="table table-hover col-md-12">
+      <thead>
+        <tr>
+          <th> ID Contrato </th>
+          <th> Carro </th>
+          <th> Cliente </th>
+          <th> Contato </th>
+          <th> Email </th>
+          <th> Valor </th>
+          <th> Duração </th>
+          <th> Inicio </th>
+          <th> Fim </th>
+        </tr>
+      </thead>
+      <tbody >
+        <tr>
+          <td class="text-center"> 1 </td>
+          <td> BMW X6 </td>
+          <td> Maria </td>
+          <td> (31) 6663-7693</td>
+          <td> maria@gmail.com </td>
+          <td> R$ 600,00 </td>
+          <td> 4 dias </td>
+          <td> 18/12/2022 </td>
+          <td> 21/12/2022 </td>
+
+      </tbody>
+    </table>
+
+</div>
+<div id="modalDelecao" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Confirmação</h4>
+      </div>
+      <div class="modal-body" >
+        Tem certeza que deseja excluir o cliente
+
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" > <i class="fa fa-check"></i> Confirmar</button>
+        <button class="btn btn-default" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Voltar</button>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary">Sign in</button>
-  </form>
+  </div>
 </div>
+</div>
+
+{{ contratos | json}}
+

@@ -11,23 +11,57 @@ import { Endereco } from './../Endereco';
 })
 export class ListaDeClientesComponent implements OnInit {
 
-  cliente: Cliente
   clientes: Cliente[];
-  endereco: Endereco;
+  clienteSelecionado: Cliente;
+  mensagemSucesso: boolean = false;
+  mensagemErro: boolean = false;
+
   constructor(
     private service: ClienteService,
     private route: Router
     ) {
-      this.cliente = new Cliente()
    }
 
   ngOnInit(): void {
     this.service
     .getClientes()
-    .subscribe( reposta => this.clientes = reposta
-    );
+    .subscribe( resposta => this.clientes = resposta );
   }
 
-  novoCliente(){
+  modalDelecao( cliente: Cliente ){
+    this.clienteSelecionado = cliente;
   }
+
+  modalEdicao( cliente: Cliente ){
+    this.clienteSelecionado = cliente;
+  }
+
+  deletarCliente(){
+    this.service
+    .deletarCliente(this.clienteSelecionado)
+    .subscribe(
+      resposta => {
+        this.mensagemSucesso = true;
+        this.mensagemErro = false;
+        this.ngOnInit()
+      }, errorRespose => {
+        this.mensagemErro = true;
+        this.mensagemSucesso = false;
+      })
+  }
+
+  editarCliente(){
+    this.service
+    .atualizarCliente(this.clienteSelecionado)
+    .subscribe(
+      resposta => {
+        this.ngOnInit()
+      }, error => {
+        alert('erro')
+      }
+    )
+  }
+
+
+
 }

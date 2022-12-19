@@ -17,6 +17,8 @@ import { CarrosService } from './carros.service';
 import { LayoutComponent } from './layout/layout.component';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { ClienteService } from './cliente.service';
+import { CepService } from './cep.service';
+import { ContratosService } from './contratos.service';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { ClienteService } from './cliente.service';
   ],
   providers: [
     CarrosService,
-    ClienteService
+    ClienteService,
+    CepService,
+    ContratosService
   ],
   bootstrap: [AppComponent]
 })

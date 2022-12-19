@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ContratosRoutingModule } from './contratos-routing.module';
 import { ContratoDeAluguelComponent } from './contrato-de-aluguel/contrato-de-aluguel.component';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     ContratosRoutingModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ], exports: [
     ContratoDeAluguelComponent
   ]
