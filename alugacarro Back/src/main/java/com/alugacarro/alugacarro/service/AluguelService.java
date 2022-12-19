@@ -16,5 +16,4 @@ public interface AluguelService {
 
     void finalizaAluguel(Integer id);
 
-    Page<Aluguel> listAll(Pageable paginacao);
 }

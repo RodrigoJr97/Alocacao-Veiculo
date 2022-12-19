@@ -37,7 +37,7 @@ public class Carro {
     @NotNull(message = "Obrigatório - Valor Diária")
     private BigDecimal valorDiaria;
 
-    @NotEmpty(message = "brigatório - Tipo Combustivel")
+    @NotEmpty(message = "Obrigatório - Tipo Combustivel")
     private String tipoDeCombustivel;
 
 

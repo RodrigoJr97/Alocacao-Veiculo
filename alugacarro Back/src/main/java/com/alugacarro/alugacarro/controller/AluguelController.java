@@ -1,6 +1,7 @@
 package com.alugacarro.alugacarro.controller;
 
 import com.alugacarro.alugacarro.domain.entity.Aluguel;
+import com.alugacarro.alugacarro.domain.repository.AluguelRepository;
 import com.alugacarro.alugacarro.dto.AluguelDTO;
 import com.alugacarro.alugacarro.dto.InformacoesAluguelDTO;
 import com.alugacarro.alugacarro.service.AluguelService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @CrossOrigin("*")
 @RestController
@@ -20,9 +22,12 @@ import javax.validation.Valid;
 public class AluguelController {
 
     private final AluguelService aluguelService;
+    private final AluguelRepository aluguelRepository;
 
-    public AluguelController(AluguelService aluguelService) {
+    public AluguelController(AluguelService aluguelService,
+                             AluguelRepository aluguelRepository) {
         this.aluguelService = aluguelService;
+        this.aluguelRepository = aluguelRepository;
     }
 
     @PostMapping
@@ -32,12 +37,9 @@ public class AluguelController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Aluguel>> getAllCarros(@RequestParam int pagina,
-                                                      @RequestParam int quantidade) {
+    public ResponseEntity<?> getAllCarros() {
 
-        Pageable paginacao = PageRequest.of(pagina, quantidade);
-
-        Page<Aluguel> listaAlguel = aluguelService.listAll(paginacao);
+        List<Aluguel> listaAlguel = aluguelRepository.findAll();
 
         if (listaAlguel.isEmpty()) {
             return ResponseEntity.noContent().build();
