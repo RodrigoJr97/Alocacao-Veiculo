@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { ClienteService } from '../cliente.service';
 import { Cliente } from '../clientes/Clientes';
-import { Endereco } from '../clientes/Endereco';
-import { Cep } from './cep';
+import { Router } from '@angular/router';
+import { CepService } from './../cep.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -11,33 +10,76 @@ import { Cep } from './cep';
   styleUrls: ['./cadastro.component.css']
 })
 export class CadastroComponent implements OnInit {
-  cliente: Cliente;
 
-  cepForm = {
+  cliente: Cliente = {
+    nome: '',
+    cpf: '',
+    numeroTelefone: '',
+    email: '',
+    disponivel: true,
+    endereco: {
+      cep: '',
+      logradouro: '',
+      numeroLogradouro: '',
+      bairro: '',
+      localidade: '',
+      uf: '',
+      complemento: ''
+    }
+  }
+
+  endereco: any = {
     cep: '',
+    logradouro: '',
+    numeroLogradouro: '',
+    bairro: '',
+    localidade: '',
     uf: '',
     complemento: '',
-    localidade: '',
-    logradouro: '',
-    bairro: ''
-  };
+    ibge: '',
+    gia: '',
+    ddd: '',
+    siafi: ''
+  }
+
+  falhaDeCadastro: boolean = false;
+  sucesso: boolean = false;
+  cep: string = '';
 
 
   constructor(
-    private clienteService : ClienteService
+    private clienteService : ClienteService,
+    private cepService: CepService,
+    private router: Router
   ) {
-    this.cliente = new Cliente();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   consultaCep(){
-    this.clienteService.getCep(this.cepForm.cep).subscribe( reposta => this.cepForm = reposta);
+    this.cepService.getCep(this.cep)
+    .subscribe( resposta => {
+      this.endereco = resposta;
+      this.cliente.endereco = this.endereco;
+    });
   }
 
-  onSubmit(){
-    this.clienteService.salvarCliente(this.cliente)
-    .subscribe( res => this.cliente = res, err => alert('deu erro ai mano'))
+  cadastrar(){
+    this.clienteService
+    .salvarCliente(this.cliente)
+    .subscribe( resposta => {
+      this.sucesso = true;
+      this.falhaDeCadastro = false
+    }, err => {
+      alert('algo deu errado!')
+      console.log(err);
+      this.sucesso = false;
+      this.falhaDeCadastro = true;
+    })
   }
+
+  voltar(){
+    this.router.navigate(['/login']);
+  }
+
 }

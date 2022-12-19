@@ -2,12 +2,16 @@
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item active">Listagem</li>
 </ol>
-<div class="col-md-2">
-  <button class="btn btn-secondary mb-3" (click)="novoCliente()">
-    <i class="fa fa-plus"></i> Novo Cliente
-  </button>
-</div>
+
   <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-success" role="alert" *ngIf="mensagemSucesso">
+        O cliente {{ clienteSelecionado.nome }} de ID: {{ clienteSelecionado.id }} foi deletado com sucesso!
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="mensagemErro">
+        Ocorreu um erro ao deletar o cliente: {{ clienteSelecionado.nome }} ID: {{ clienteSelecionado.id }}.
+      </div>
+    </div>
       <table class="table table-hover col-md-12 ">
         <thead>
           <tr>
@@ -17,15 +21,14 @@
             <th> Contato </th>
             <th> Email </th>
             <th> Disponivel </th>
-            <th> Rua </th>
             <th> Logradouro </th>
+            <th> N° </th>
             <th> Bairro </th>
             <th> Cidade </th>
             <th> Estado </th>
             <th> Comp </th>
-            <th> Excluir </th>
             <th> Editar </th>
-
+            <th> Excluir </th>
           </tr>
         </thead>
         <tbody *ngFor="let cliente of clientes">
@@ -36,24 +39,24 @@
             <td> {{ cliente.numeroTelefone }} </td>
             <td> {{ cliente.email }} </td>
             <td class="text-center"> {{ cliente.disponivelParaContrato ? 'sim' : 'não' }} </td>
-            <td>{{ cliente.endereco.rua }} </td>
+            <td>{{ cliente.endereco.logradouro }} </td>
             <td class="text-center">{{ cliente.endereco.numeroLogradouro }} </td>
             <td>{{ cliente.endereco.bairro }} </td>
-            <td>{{ cliente.endereco.cidade }} </td>
-            <td>{{ cliente.endereco.estado }} </td>
+            <td>{{ cliente.endereco.localidade }} </td>
+            <td>{{ cliente.endereco.uf }} </td>
             <td>{{ cliente.endereco.complemento }} </td>
             <td>
               <button class="btn btn-default" type="button"
-                data-toggle="modal" data-target="#modalDelecao">
-                <i class="fa fa-trash"></i>
-              </button>
-            </td>
-            <td>
-              <button class="btn btn-default" type="button"
-                data-toggle="modal" data-target="#modalDelecao">
-                <i class="fa fa-edit"></i>
-              </button>
-            </td>
+              routerLink="/clientes/formulario-edicao/{{ cliente.id }}">
+              <i class="fa fa-edit"></i>
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-default" type="button" (click)="modalDelecao(cliente)"
+              data-toggle="modal" data-target="#modalDelecao">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
         </tbody>
       </table>
 
@@ -64,12 +67,12 @@
         <div class="modal-header">
           <h4>Confirmação</h4>
         </div>
-        <div class="modal-body">
-          Tem certeza que deseja excluir o carro
-
+        <div class="modal-body" *ngIf="clienteSelecionado">
+          Tem certeza que deseja excluir o cliente
+          {{ clienteSelecionado.nome }} de ID: {{ clienteSelecionado.id }} ?
         </div>
         <div class="modal-footer">
-          <button class="btn btn-default"> <i class="fa fa-check"></i> Confirmar</button>
+          <button class="btn btn-default" (click)="deletarCliente()"> <i class="fa fa-check"></i> Confirmar</button>
           <button class="btn btn-default" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Voltar</button>
         </div>
       </div>
@@ -78,4 +81,4 @@
 
 
 
-{{ clientes | json}}
+

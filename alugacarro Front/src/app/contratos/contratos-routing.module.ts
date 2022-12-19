@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LayoutComponent } from '../layout/layout.component';
 import { ContratoDeAluguelComponent } from './contrato-de-aluguel/contrato-de-aluguel.component';
 
 
 const routes: Routes = [
-  { path: 'alugar', component: ContratoDeAluguelComponent}
+  { path: 'contratos', component: LayoutComponent, children: [
+    { path: 'listagem', component: ContratoDeAluguelComponent }
+  ]}
 ];
 
 @NgModule({

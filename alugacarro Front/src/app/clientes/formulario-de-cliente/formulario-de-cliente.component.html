@@ -1,0 +1,114 @@
+<h1 class="mt-4">Cliente</h1>
+<ol class="breadcrumb mb-4">
+  <li class="breadcrumb-item active">Editar</li>
+</ol>
+<div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-success" role="alert" *ngIf="success == true">
+        Cliente atualizado com sucesso!!
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="falha == true">
+        Falha ao atualizar cliente!!
+      </div>
+    </div>
+  </div>
+<div class="container mb-5">
+  <form class="mt-2" #clienteForm="ngForm">
+    <div class="form-row">
+      <div class="form-group col-md-1">
+        <label>ID: </label>
+        <input
+          type="text"
+          class="form-control"
+          [ngModel]="cliente.id"
+          name="id"
+          disabled="true"
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label>Email: </label>
+        <input
+          type="email"
+          class="form-control"
+          [(ngModel)]="cliente.email"
+          name="email"
+        />
+      </div>
+      <div class="form-group col-md-4">
+        <label>Nome e sobrenome: </label>
+        <input type="text"
+        class="form-control"
+        name="nome"
+        [(ngModel)]="cliente.nome"
+        />
+      </div>
+
+      <div class="form-group col-md-2">
+        <label> CPF: </label>
+        <input type="text" class="form-control" maxlength="11" name="cpf"
+        [(ngModel)]="cliente.cpf"/>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        <label>CEP:</label>
+        <input type="text" class="form-control"
+        [(ngModel)]="cliente.endereco.cep" name="cep"/>
+      </div>
+      <div class="form-group col-md-3">
+        <label> N° contato: </label>
+        <input type="text" class="form-control" name="numeroTelefone"
+        [(ngModel)]="cliente.numeroTelefone"/>
+      </div>
+      <div class="form-group col-md-2">
+        <label>UF:</label>
+        <input type="text" class="form-control" name="uf"
+        [(ngModel)]="cliente.endereco.uf"/>
+      </div>
+      <div class="form-group col-md-4">
+        <label>Localidade:</label>
+        <input type="text" class="form-control" name="localidade"
+        [(ngModel)]="cliente.endereco.localidade"/>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="">Bairro: </label>
+        <input type="text" class="form-control" name="bairro"
+        [(ngModel)]="cliente.endereco.bairro"/>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="">N°: </label>
+        <input type="text" class="form-control" name="numeroLogradouro"
+        [(ngModel)]="cliente.endereco.numeroLogradouro" />
+      </div>
+      <div class="form-group col-md-4">
+        <label for="">logradouro: </label>
+        <input type="text" class="form-control" name="logradouro"
+        [(ngModel)]="cliente.endereco.logradouro"/>
+      </div>
+      <div class="form-group col-md-2">
+        <label for="">Complemento: </label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="ex: casa"
+          name="complemento"
+          [(ngModel)]="cliente.endereco.complemento"
+        />
+      </div>
+    </div>
+  </form>
+  <div class="row">
+    <div class="col-md-3">
+      <button type="submit" class="btn btn-primary mr-2" (click)="atualizar()">
+        <i class="fa fa-sync"></i> Atualizar
+      </button>
+
+      <button type="button" class="btn btn-danger" (click)="voltar()">
+        <i class="fa fa-arrow-circle-left"></i> Voltar
+      </button>
+    </div>
+  </div>
+</div>
+

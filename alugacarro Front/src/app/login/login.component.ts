@@ -8,10 +8,9 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent  {
 
-  username: string;
+  email: string;
   password: string;
   loginError: boolean;
-  cadastrando: boolean;
 
   constructor(
     private router: Router,
@@ -19,16 +18,11 @@ export class LoginComponent  {
 
   onSubmit() {
     this.router.navigate(['/home']);
-    console.log(`User: ${this.username}, Pass: ${this.password}`);
+    console.log(`Email: ${this.email}, Pass: ${this.password}`);
   }
 
-  preparaCadastro(event){
-    event.preventDefault();
-    this.cadastrando = true;
-  }
-
-  cancelaCadastro(){
-    this.cadastrando = false;
+  cancelar(){
+    this.router.navigate(['/home']);
   }
 
 }
