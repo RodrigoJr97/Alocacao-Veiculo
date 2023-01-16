@@ -1,0 +1,37 @@
+package com.alugacarro.alugacarro.service.implementacao;
+
+import com.alugacarro.alugacarro.domain.entity.EnderecoCliente;
+import com.alugacarro.alugacarro.domain.repository.EnderecoClienteRepository;
+import com.alugacarro.alugacarro.service.EnderecoService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+@RequiredArgsConstructor
+public class EnderecoServiceImpl implements EnderecoService {
+    private final EnderecoClienteRepository enderecoRepository;
+
+    @Override
+    public EnderecoCliente salvar(EnderecoCliente enderecoCliente) {
+        return enderecoRepository.save(enderecoCliente);
+    }
+
+    @Override
+    public List<EnderecoCliente> lista() {
+        return enderecoRepository.findAll();
+    }
+
+    @Override
+    public Optional<EnderecoCliente> findEnderecoById(Integer id) {
+        return enderecoRepository.findById(id);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        enderecoRepository.deleteById(id);
+    }
+
+}

@@ -2,7 +2,7 @@ package com.alugacarro.alugacarro.controller;
 
 import com.alugacarro.alugacarro.domain.entity.Cliente;
 import com.alugacarro.alugacarro.domain.entity.EnderecoCliente;
-import com.alugacarro.alugacarro.domain.repository.EnderecoClienteRepository;
+import com.alugacarro.alugacarro.service.EnderecoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,15 +16,15 @@ import java.util.Optional;
 @RequestMapping("/aluga/endereco")
 public class EnderecoController {
 
-    private final EnderecoClienteRepository enderecoRepository;
+    private final EnderecoService enderecoService;
 
-    public EnderecoController(EnderecoClienteRepository enderecoClienteRepository) {
-        this.enderecoRepository = enderecoClienteRepository;
+    public EnderecoController(EnderecoService enderecoService) {
+        this.enderecoService = enderecoService;
     }
 
     @GetMapping
     public ResponseEntity<?> getAllEndereco() {
-        List<EnderecoCliente> listaEndereco = enderecoRepository.findAll();
+        List<EnderecoCliente> listaEndereco = enderecoService.lista();
         if (listaEndereco.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -34,27 +34,27 @@ public class EnderecoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteEndereco(@PathVariable Integer id) {
-        Optional<EnderecoCliente> buscaEnderecoId = enderecoRepository.findById(id);
+        Optional<EnderecoCliente> buscaEnderecoId = enderecoService.findEnderecoById(id);
 
         if (buscaEnderecoId.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
 
-        enderecoRepository.deleteById(id);
+        enderecoService.delete(id);
         return new ResponseEntity<>("Endereço Deletado", HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizaEndereco(@PathVariable Integer id, @RequestBody @Valid EnderecoCliente novoEndereco) {
 
-        Optional<EnderecoCliente> enderecoAux = enderecoRepository.findById(id);
+        Optional<EnderecoCliente> enderecoAux = enderecoService.findEnderecoById(id);
         Cliente cliente = enderecoAux.get().getCliente();
 
         return enderecoAux
                 .map( enderecoAntigo -> {
                     novoEndereco.setId(enderecoAntigo.getId());
                     novoEndereco.setCliente(cliente);
-                    enderecoRepository.save(novoEndereco);
+                    enderecoService.salvar(novoEndereco);
                     return new ResponseEntity<>(novoEndereco, HttpStatus.OK);
                 } ).orElseGet( () -> {
                     return ResponseEntity.noContent().build();

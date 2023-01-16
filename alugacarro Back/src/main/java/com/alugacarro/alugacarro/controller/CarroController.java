@@ -2,6 +2,7 @@ package com.alugacarro.alugacarro.controller;
 
 import com.alugacarro.alugacarro.domain.entity.Carro;
 import com.alugacarro.alugacarro.domain.repository.CarroRepository;
+import com.alugacarro.alugacarro.service.CarroService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,24 +16,22 @@ import java.util.Optional;
 @RequestMapping("/aluga/carro")
 public class CarroController {
 
-    private final CarroRepository carroRepository;
+    private final CarroService carroService;
 
-    public CarroController(CarroRepository carroRepository) {
-        this.carroRepository = carroRepository;
+    public CarroController(CarroService carroService) {
+        this.carroService = carroService;
     }
 
     @PostMapping
     public ResponseEntity<?> salvar(@RequestBody @Valid Carro carro) {
-        String tipoAux = carro.getTipo().toUpperCase();
+        carroService.salvar(carro);
 
-        carro.setTipo(tipoAux);
-        carroRepository.save(carro);
         return new ResponseEntity<>(carro, HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<?> getAllCarros() {
-        List<Carro> carros = carroRepository.findAll();
+        List<Carro> carros = carroService.lista();
 
         if (carros.isEmpty()) {
             return  ResponseEntity.noContent().build();
@@ -43,7 +42,7 @@ public class CarroController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getCarroById(@PathVariable Integer id) {
-        Optional<Carro> buscaCarroId = carroRepository.findById(id);
+        Optional<Carro> buscaCarroId = carroService.findCarroById(id);
 
         if (buscaCarroId.isEmpty()) {
             return new ResponseEntity<>("Carro não encontrado.", HttpStatus.NO_CONTENT);
@@ -52,9 +51,9 @@ public class CarroController {
         return new ResponseEntity<>(buscaCarroId.get(), HttpStatus.OK);
     }
 
-    @GetMapping("/tipo/{tipo}")
-    public ResponseEntity<?> getCarroTipo(@PathVariable String tipo) {
-        List<Carro> listCarroByTipo = carroRepository.findCarroByTipo(tipo);
+    @GetMapping("/tipo")
+    public ResponseEntity<?> getCarroTipo(@RequestParam String tipo) {
+        List<Carro> listCarroByTipo = carroService.carroPorTipo(tipo);
 
         if (listCarroByTipo.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -65,7 +64,7 @@ public class CarroController {
 
     @GetMapping("/disponivel")
     public ResponseEntity<?> getCarrosDisponiveis() {
-        List<Carro> byCarroDisponivel = carroRepository.findByCarroDisponivel();
+        List<Carro> byCarroDisponivel = carroService.listaCarroDisponivel();
 
         if (byCarroDisponivel.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -76,7 +75,7 @@ public class CarroController {
 
     @GetMapping("/indisponivel")
     public ResponseEntity<?> getCarrosIndisponiveis() {
-        List<Carro> byCarroIndisponivel = carroRepository.findByCarroIndisponivel();
+        List<Carro> byCarroIndisponivel = carroService.listaCarroIndisponivel();
 
         if (byCarroIndisponivel.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -87,24 +86,24 @@ public class CarroController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletaCarro(@PathVariable Integer id) {
-        Optional<Carro> buscaCarroId = carroRepository.findById(id);
+        Optional<Carro> buscaCarroId = carroService.findCarroById(id);
 
         if (buscaCarroId.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
 
-        carroRepository.deleteById(id);
+        carroService.delete(id);
         return new ResponseEntity<>("Carro Deletado", HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizaCarro(@PathVariable Integer id, @RequestBody @Valid Carro carro) {
 
-        return carroRepository
-                .findById(id)
+        return carroService
+                .findCarroById(id)
                 .map( carroAtualizado -> {
                     carro.setId(carroAtualizado.getId());
-                    carroRepository.save(carro);
+                    carroService.salvar(carro);
                     return ResponseEntity.ok().build();
                 }).orElseGet( () -> {
                     return ResponseEntity.notFound().build();
