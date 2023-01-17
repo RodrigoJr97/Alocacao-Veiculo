@@ -15,4 +15,6 @@ public interface ClienteService {
 
     void delete(Integer id);
 
+    void update(Integer id, Cliente cliente);
+
 }

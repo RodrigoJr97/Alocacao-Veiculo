@@ -1,5 +1,6 @@
 package com.alugacarro.alugacarro.service.implementacao;
 
+import com.alugacarro.alugacarro.domain.entity.Cliente;
 import com.alugacarro.alugacarro.domain.entity.EnderecoCliente;
 import com.alugacarro.alugacarro.domain.repository.EnderecoClienteRepository;
 import com.alugacarro.alugacarro.service.EnderecoService;
@@ -32,6 +33,16 @@ public class EnderecoServiceImpl implements EnderecoService {
     @Override
     public void delete(Integer id) {
         enderecoRepository.deleteById(id);
+    }
+
+    @Override
+    public void update(Integer id, EnderecoCliente novoEndereco) {
+        Optional<EnderecoCliente> optionalEndereco = enderecoRepository.findById(id);
+        Cliente cliente = optionalEndereco.get().getCliente();
+
+        novoEndereco.setId(optionalEndereco.get().getId());
+        novoEndereco.setCliente(cliente);
+        enderecoRepository.save(novoEndereco);
     }
 
 }

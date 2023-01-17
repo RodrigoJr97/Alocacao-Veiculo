@@ -99,15 +99,14 @@ public class CarroController {
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizaCarro(@PathVariable Integer id, @RequestBody @Valid Carro carro) {
 
-        return carroService
-                .findCarroById(id)
-                .map( carroAtualizado -> {
-                    carro.setId(carroAtualizado.getId());
-                    carroService.salvar(carro);
-                    return ResponseEntity.ok().build();
-                }).orElseGet( () -> {
-                    return ResponseEntity.notFound().build();
-                });
+        Optional<Carro> optionalCarro = carroService.findCarroById(id);
+
+        if (optionalCarro.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        carroService.update(id, carro);
+        return ResponseEntity.ok().build();
 
     }
 

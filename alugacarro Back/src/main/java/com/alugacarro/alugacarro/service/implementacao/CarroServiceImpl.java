@@ -55,4 +55,12 @@ public class CarroServiceImpl implements CarroService {
         carroRepository.deleteById(id);
     }
 
+    @Override
+    public void update(Integer id, Carro carro) {
+        Optional<Carro> optionalCarro = carroRepository.findById(id);
+
+        carro.setId(optionalCarro.get().getId());
+        carroRepository.save(carro);
+    }
+
 }

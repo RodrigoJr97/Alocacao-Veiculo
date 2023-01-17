@@ -48,17 +48,13 @@ public class EnderecoController {
     public ResponseEntity<?> atualizaEndereco(@PathVariable Integer id, @RequestBody @Valid EnderecoCliente novoEndereco) {
 
         Optional<EnderecoCliente> enderecoAux = enderecoService.findEnderecoById(id);
-        Cliente cliente = enderecoAux.get().getCliente();
 
-        return enderecoAux
-                .map( enderecoAntigo -> {
-                    novoEndereco.setId(enderecoAntigo.getId());
-                    novoEndereco.setCliente(cliente);
-                    enderecoService.salvar(novoEndereco);
-                    return new ResponseEntity<>(novoEndereco, HttpStatus.OK);
-                } ).orElseGet( () -> {
-                    return ResponseEntity.noContent().build();
-                });
+        if (enderecoAux.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        enderecoService.update(id, novoEndereco);
+        return ResponseEntity.ok().build();
 
     }
 

@@ -15,4 +15,6 @@ public interface EnderecoService {
 
     void delete(Integer id);
 
+    void update(Integer id, EnderecoCliente novoEndereco);
+
 }

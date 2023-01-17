@@ -63,16 +63,14 @@ public class ClienteController {
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizaCliente(@PathVariable Integer id, @RequestBody @Valid Cliente clienteAtualizado) {
 
-        return clienteService
-                .findClienteById(id)
-                .map( cliente -> {
-                    clienteAtualizado.setId(cliente.getId());
-                    clienteAtualizado.setDisponivelParaContrato(cliente.isDisponivelParaContrato());
-                    clienteService.salvar(clienteAtualizado);
-                    return new ResponseEntity<>(clienteAtualizado, HttpStatus.OK);
-                }).orElseGet( () -> {
-                    return ResponseEntity.noContent().build();
-                });
+        Optional<Cliente> optionalCliente = clienteService.findClienteById(id);
+
+        if (optionalCliente.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        clienteService.update(id, clienteAtualizado);
+        return ResponseEntity.ok().build();
 
     }
 

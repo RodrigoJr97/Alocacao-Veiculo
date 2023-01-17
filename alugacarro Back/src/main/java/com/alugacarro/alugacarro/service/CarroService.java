@@ -21,6 +21,6 @@ public interface CarroService {
 
     void delete(Integer id);
 
-//    Carro update(Integer id, Carro carro);
+    void update(Integer id, Carro carro);
 
 }
