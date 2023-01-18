@@ -1,6 +1,5 @@
 package com.alugacarro.alugacarro.controller;
 
-import com.alugacarro.alugacarro.domain.entity.Cliente;
 import com.alugacarro.alugacarro.domain.entity.EnderecoCliente;
 import com.alugacarro.alugacarro.service.EnderecoService;
 import org.springframework.http.HttpStatus;
@@ -34,7 +33,7 @@ public class EnderecoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteEndereco(@PathVariable Integer id) {
-        Optional<EnderecoCliente> buscaEnderecoId = enderecoService.findEnderecoById(id);
+        Optional<EnderecoCliente> buscaEnderecoId = enderecoService.findById(id);
 
         if (buscaEnderecoId.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -47,7 +46,7 @@ public class EnderecoController {
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizaEndereco(@PathVariable Integer id, @RequestBody @Valid EnderecoCliente novoEndereco) {
 
-        Optional<EnderecoCliente> enderecoAux = enderecoService.findEnderecoById(id);
+        Optional<EnderecoCliente> enderecoAux = enderecoService.findById(id);
 
         if (enderecoAux.isEmpty()) {
             return ResponseEntity.notFound().build();

@@ -1,7 +1,6 @@
 package com.alugacarro.alugacarro.controller;
 
 import com.alugacarro.alugacarro.domain.entity.Carro;
-import com.alugacarro.alugacarro.domain.repository.CarroRepository;
 import com.alugacarro.alugacarro.service.CarroService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +41,7 @@ public class CarroController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getCarroById(@PathVariable Integer id) {
-        Optional<Carro> buscaCarroId = carroService.findCarroById(id);
+        Optional<Carro> buscaCarroId = carroService.findById(id);
 
         if (buscaCarroId.isEmpty()) {
             return new ResponseEntity<>("Carro não encontrado.", HttpStatus.NO_CONTENT);
@@ -86,7 +85,7 @@ public class CarroController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletaCarro(@PathVariable Integer id) {
-        Optional<Carro> buscaCarroId = carroService.findCarroById(id);
+        Optional<Carro> buscaCarroId = carroService.findById(id);
 
         if (buscaCarroId.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -99,7 +98,7 @@ public class CarroController {
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizaCarro(@PathVariable Integer id, @RequestBody @Valid Carro carro) {
 
-        Optional<Carro> optionalCarro = carroService.findCarroById(id);
+        Optional<Carro> optionalCarro = carroService.findById(id);
 
         if (optionalCarro.isEmpty()) {
             return ResponseEntity.notFound().build();

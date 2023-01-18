@@ -31,7 +31,7 @@ public class CarroServiceImpl implements CarroService {
     }
 
     @Override
-    public Optional<Carro> findCarroById(Integer id) {
+    public Optional<Carro> findById(Integer id) {
         return carroRepository.findById(id);
     }
 

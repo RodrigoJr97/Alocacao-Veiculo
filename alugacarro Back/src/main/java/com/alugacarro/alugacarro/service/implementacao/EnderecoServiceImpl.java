@@ -26,7 +26,7 @@ public class EnderecoServiceImpl implements EnderecoService {
     }
 
     @Override
-    public Optional<EnderecoCliente> findEnderecoById(Integer id) {
+    public Optional<EnderecoCliente> findById(Integer id) {
         return enderecoRepository.findById(id);
     }
 

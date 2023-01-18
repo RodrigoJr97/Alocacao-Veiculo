@@ -39,7 +39,7 @@ public class ClienteController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getClienteById(@PathVariable Integer id) {
-        Optional<Cliente> buscaClienteId = clienteService.findClienteById(id);
+        Optional<Cliente> buscaClienteId = clienteService.findById(id);
 
         if (buscaClienteId.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -50,7 +50,7 @@ public class ClienteController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCliente(@PathVariable Integer id) {
-        Optional<Cliente> buscaClienteId = clienteService.findClienteById(id);
+        Optional<Cliente> buscaClienteId = clienteService.findById(id);
 
         if (buscaClienteId.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -63,7 +63,7 @@ public class ClienteController {
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizaCliente(@PathVariable Integer id, @RequestBody @Valid Cliente clienteAtualizado) {
 
-        Optional<Cliente> optionalCliente = clienteService.findClienteById(id);
+        Optional<Cliente> optionalCliente = clienteService.findById(id);
 
         if (optionalCliente.isEmpty()) {
             return ResponseEntity.notFound().build();
