@@ -1,10 +1,8 @@
 package com.alugacarro.alugacarro.service;
 
 import com.alugacarro.alugacarro.domain.entity.Aluguel;
-import com.alugacarro.alugacarro.domain.entity.Carro;
 import com.alugacarro.alugacarro.dto.AluguelDTO;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.alugacarro.alugacarro.dto.InformacoesAluguelDTO;
 
 import java.util.Optional;
 
@@ -12,8 +10,13 @@ import java.util.Optional;
 public interface AluguelService {
 
     Aluguel salvar(AluguelDTO aluguelDTO);
-    Optional<Aluguel> obterAluguelCompleto(Integer id);
+
+    Optional<Aluguel> findById(Integer id);
 
     void finalizaAluguel(Integer id);
+
+    void delete(Integer id);
+
+    InformacoesAluguelDTO converter(Aluguel aluguel);
 
 }

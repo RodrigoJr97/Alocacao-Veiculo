@@ -5,9 +5,6 @@ import com.alugacarro.alugacarro.domain.repository.AluguelRepository;
 import com.alugacarro.alugacarro.dto.AluguelDTO;
 import com.alugacarro.alugacarro.dto.InformacoesAluguelDTO;
 import com.alugacarro.alugacarro.service.AluguelService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,8 +48,8 @@ public class AluguelController {
     @GetMapping("/{id}")
     public InformacoesAluguelDTO getAluguelById(@PathVariable Integer id) {
         return aluguelService
-                .obterAluguelCompleto(id)
-                .map( aluguel -> converter(aluguel) )
+                .findById(id)
+                .map( aluguel -> aluguelService.converter(aluguel) )
                 .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Contrato não encontrado"));
     }
 
@@ -62,24 +59,5 @@ public class AluguelController {
         return new ResponseEntity<>("Contrato Finalizado", HttpStatus.OK);
     }
 
-    private InformacoesAluguelDTO converter(Aluguel aluguel) {
-
-        return InformacoesAluguelDTO
-                .builder()
-                .codigo(aluguel.getId())
-                .incioAluguel(aluguel.getDataInicio())
-                .fimAluguel(aluguel.getDataFim())
-                .nome(aluguel.getCliente().getNome())
-                .numeroTelefone(aluguel.getCliente().getNumeroTelefone())
-                .cpf(aluguel.getCliente().getCpf())
-                .email(aluguel.getCliente().getEmail())
-                .marca(aluguel.getCarro().getMarca())
-                .modelo(aluguel.getCarro().getModelo())
-                .tipo(aluguel.getCarro().getTipo())
-                .valorDiaria(aluguel.getCarro().getValorDiaria())
-                .valorTotal(aluguel.getValorTotal())
-                .build();
-
-    }
 
 }

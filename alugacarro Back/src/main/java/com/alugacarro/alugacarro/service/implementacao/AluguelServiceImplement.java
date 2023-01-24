@@ -8,6 +8,7 @@ import com.alugacarro.alugacarro.domain.repository.AluguelRepository;
 import com.alugacarro.alugacarro.domain.repository.CarroRepository;
 import com.alugacarro.alugacarro.domain.repository.ClienteRepository;
 import com.alugacarro.alugacarro.dto.AluguelDTO;
+import com.alugacarro.alugacarro.dto.InformacoesAluguelDTO;
 import com.alugacarro.alugacarro.exception.CarroNaoDisponivelException;
 import com.alugacarro.alugacarro.exception.ClienteComContratoAbertoException;
 import com.alugacarro.alugacarro.exception.RegraNegocioException;
@@ -80,7 +81,7 @@ public class AluguelServiceImplement implements AluguelService {
     }
 
     @Override
-    public Optional<Aluguel> obterAluguelCompleto(Integer id) {
+    public Optional<Aluguel> findById(Integer id) {
         return aluguelRepository.findById(id);
     }
 
@@ -108,5 +109,31 @@ public class AluguelServiceImplement implements AluguelService {
         aluguelRepository.save(aluguelParaFinalizar);
     }
 
+    @Override
+    public void delete(Integer id) {
+        aluguelRepository.deleteById(id);
+    }
+
+    @Override
+    public InformacoesAluguelDTO converter(Aluguel aluguel) {
+
+        return InformacoesAluguelDTO
+                .builder()
+                .codigo(aluguel.getId())
+                .incioAluguel(aluguel.getDataInicio())
+                .fimAluguel(aluguel.getDataFim())
+                .nome(aluguel.getCliente().getNome())
+                .numeroTelefone(aluguel.getCliente().getNumeroTelefone())
+                .cpf(aluguel.getCliente().getCpf())
+                .email(aluguel.getCliente().getEmail())
+                .marca(aluguel.getCarro().getMarca())
+                .modelo(aluguel.getCarro().getModelo())
+                .tipo(aluguel.getCarro().getTipo())
+                .valorDiaria(aluguel.getCarro().getValorDiaria())
+                .valorTotal(aluguel.getValorTotal())
+                .statusContrato(aluguel.getStatusContrato().name())
+                .build();
+
+    }
 
 }
