@@ -1,60 +1,35 @@
-<h1 class="mt-4"> Contrato de aluguel </h1>
+<h1 class="mt-4">Contrato de aluguel</h1>
 <ol class="breadcrumb mb-4">
   <li class="breadcrumb-item active">Listagem</li>
 </ol>
 <div class="container mb-5">
-<div class="row">
-  <div class="col-md-12">
-
-  </div>
+  <div class="row">
+    <div class="col-md-12"></div>
     <table class="table table-hover col-md-12">
       <thead>
         <tr>
-          <th> ID Contrato </th>
-          <th> Carro </th>
-          <th> Cliente </th>
-          <th> Contato </th>
-          <th> Email </th>
-          <th> Valor </th>
-          <th> Duração </th>
-          <th> Inicio </th>
-          <th> Fim </th>
+          <th>ID Contrato</th>
+          <th>Carro</th>
+          <th>Cliente</th>
+          <th>Email</th>
+          <th>Valor</th>
+          <th>Inicio</th>
+          <th>Fim</th>
+          <th>Status</th>
         </tr>
       </thead>
-      <tbody >
-        <tr>
-          <td class="text-center"> 1 </td>
-          <td> BMW X6 </td>
-          <td> Maria </td>
-          <td> (31) 6663-7693</td>
-          <td> maria@gmail.com </td>
-          <td> R$ 600,00 </td>
-          <td> 4 dias </td>
-          <td> 18/12/2022 </td>
-          <td> 21/12/2022 </td>
-
+      <tbody>
+        <tr *ngFor="let contrato of contratos">
+          <td class="text-center">{{ contrato.id }}</td>
+          <td>{{ contrato.carro.marca }} {{ contrato.carro.modelo }}</td>
+          <td>{{ contrato.cliente.nome }}</td>
+          <td>{{ contrato.cliente.email }}</td>
+          <td>{{ contrato.valorTotal | currency : "BRL" : true : "1.2-2" }}</td>
+          <td>{{ contrato.dataInicio }}</td>
+          <td>{{ contrato.dataFim }}</td>
+          <td>{{ contrato.statusContrato ? "finalizado" : "em aberto" }}</td>
+        </tr>
       </tbody>
     </table>
-
-</div>
-<div id="modalDelecao" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4>Confirmação</h4>
-      </div>
-      <div class="modal-body" >
-        Tem certeza que deseja excluir o cliente
-
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-default" > <i class="fa fa-check"></i> Confirmar</button>
-        <button class="btn btn-default" data-dismiss="modal"><i class="fa fa-arrow-left"></i> Voltar</button>
-      </div>
-    </div>
   </div>
 </div>
-</div>
-
-{{ contratos | json}}
-
